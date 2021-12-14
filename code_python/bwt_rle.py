@@ -1,3 +1,5 @@
+from collections import OrderedDict
+import collections
 import numpy as np
 
 
@@ -57,13 +59,62 @@ def rle_encode(data):
         return encoding
 
 
+# importing the collections
+# function
+
+
+def encode_a(text):
+    """
+    Returns a run-length encoded string from an input string.
+    Note: This function will not return the character count in the return
+    string if only a single instance of the character is found.
+
+    Args:
+        text (str): A string to encode
+
+    Returns:
+        str: A run length encoded string
+
+    Example:
+        input: "aaabbcdddd"
+        returns: "3a2bc4d"
+    """
+
+    count = 1
+    previous = ""
+    mapping = list()
+
+    for character in text:
+        if character != previous:
+            if previous:
+                mapping.append((previous, count))
+            count = 1
+            previous = character
+        else:
+            count += 1
+    else:
+        mapping.append((character, count))
+
+    result = ""
+
+    for character, count in mapping:
+        if count == 1:
+            result += character
+        else:
+            result += str(count)
+            result += character
+
+    return result
+
+
 def main():
     f = open(r"original_files\random.txt", 'r')
     string = f.read()
-    stringBWT=bwt(string)
     f.close()
-    fW=open(r"bwtRandom.txt",'w')
-    fW.write(stringBWT)
+    stringBWT = bwt(string)
+    stringRLE = encode_a(stringBWT)
+    fW = open(r"bwtRleRandom.txt", 'w')
+    fW.write(stringRLE)
     fW.close()
 
 
