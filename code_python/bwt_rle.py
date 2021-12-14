@@ -1,36 +1,4 @@
-from collections import OrderedDict
 import numpy as np
-
-
-def getEntropia(fonte):
-    fonteArray = np.array(list(fonte))
-    range1 = np.arange(65, 91)
-    range2 = np.arange(97, 123)
-    alfabetoTxt = np.concatenate((range1, range2))
-
-    mask = np.isin(np.unique(fonteArray), alfabetoTxt)
-    for i in range(len(mask)):
-        if (mask[i] == False):
-            alfabetoTxt = np.append(alfabetoTxt, np.unique(fonteArray)[i])
-
-    return calculaEntropia(fonteArray, alfabetoTxt)
-
-
-def contaOcorrencias(fonte, alfabeto):
-    arrayOcorrencias = np.zeros(alfabeto.size, int)
-    for elemento in fonte:
-        arrayOcorrencias[elemento == alfabeto] += 1
-    return arrayOcorrencias
-
-
-def calculaEntropia(fonte, alfabeto):
-    numOcorrencias = contaOcorrencias(fonte, alfabeto)
-    ns = np.sum(numOcorrencias)
-
-    m = numOcorrencias/ns
-    m = m[m > 0]
-    entropia = -np.sum(m*np.log2(m))
-    return entropia
 
 
 def bwt(s):
@@ -90,13 +58,13 @@ def rle_encode(data):
 
 
 def main():
-    f = open(r"C:\Users\josemnmatos\Documents\TP2\project\dataset\random.txt", 'r')
+    f = open(r"original_files\random.txt", 'r')
     string = f.read()
+    stringBWT=bwt(string)
     f.close()
-    stringBWT = bwt(string)
-    stringBWT_RLE = rle_encode(stringBWT)
-    print("Entropia normal->", getEntropia(string))
-    print("Entropia apos bwt e rle->", getEntropia(stringBWT_RLE))
+    fW=open(r"bwtRandom.txt",'w')
+    fW.write(stringBWT)
+    fW.close()
 
 
 if __name__ == "__main__":
