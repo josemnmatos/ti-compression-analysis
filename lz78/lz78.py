@@ -44,7 +44,7 @@ def decodeLZ(FileIn, FileOut):
 
 
 def main():
-      encodeLZ("./original_files/jquery-3.6.0.js","lz78jquery-3.6.0.js")
+      decodeLZ("./lz78/lz78Bible.txt","decodedlz78Bible.txt")
 
 if __name__=="__main__":
       main()

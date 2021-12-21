@@ -106,16 +106,22 @@ def encode_a(text):
 
     return result
 
-
-def main():
-    f = open(r"original_files\random.txt", 'r')
+def codifica(inputFile, outputFile):
+    f=open(inputFile,'r')
     string = f.read()
     f.close()
     stringBWT = bwt(string)
     stringRLE = encode_a(stringBWT)
-    fW = open(r"bwtRleRandom.txt", 'w')
+    fW = open(outputFile, 'w')
     fW.write(stringRLE)
     fW.close()
+    
+
+
+
+def main():
+    codifica("./original_files/jquery-3.6.0.js","jqueryRleBible.js")
+
 
 
 if __name__ == "__main__":
