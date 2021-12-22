@@ -1,3 +1,5 @@
+#Author: DyakoVlad
+
 def encodeLZ(FileIn, FileOut):
     input_file = open(FileIn, 'r')
     encoded_file = open(FileOut, 'w')
@@ -14,7 +16,8 @@ def encodeLZ(FileIn, FileOut):
             if len(combination) == 1:
                 encoded_file.write('0' + combination)
             else:
-                encoded_file.write(dict_of_codes[combination[0:-1]] + combination[-1])
+                encoded_file.write(
+                    dict_of_codes[combination[0:-1]] + combination[-1])
             code += 1
             combination = ''
     input_file.close()
@@ -44,7 +47,11 @@ def decodeLZ(FileIn, FileOut):
 
 
 def main():
-      decodeLZ("./lz78/lz78Bible.txt","decodedlz78Bible.txt")
+    # Codificar ficheiro
+    encodeLZ(inputFile, outputFile)
+    # Descodificar ficheiro
+    decodeLZ(encodedFile, outputFile)
 
-if __name__=="__main__":
-      main()
+
+if __name__ == "__main__":
+    main()
